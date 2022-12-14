@@ -1,8 +1,14 @@
+package order;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.example.*;
+import org.example.api.OrderClient;
+import org.example.api.UserClient;
+import org.example.entity.Client;
+import org.example.entity.Order;
+import org.example.utils.ClientGenerator;
 import org.junit.Before;
 import org.junit.Test;
 

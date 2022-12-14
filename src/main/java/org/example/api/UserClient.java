@@ -1,24 +1,21 @@
-package org.example;
+package org.example.api;
 
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+import org.example.entity.Client;
 
 import static io.restassured.RestAssured.given;
 
 public class UserClient extends Client {
-      private static final String CREATE_CLIENT_PATH = "api/auth/register";
-
+    private static final String BASE_URL = "https://stellarburgers.nomoreparties.site/";
+    private static final String CREATE_CLIENT_PATH = "api/auth/register";
     private static final String LOGIN_CLIENT_PATH = "api/auth/login";
     private static final String LOGOUT_CLIENT_PATH = "api/auth/logout";
     private static final String DELETE_CLIENT_PATH = "api/auth/user";
     private static final String CLIENT_PATH = "api/auth/user";
-
-
-    private static final String BASE_URL = " https://stellarburgers.nomoreparties.site/";
-
 
     protected RequestSpecification getSpec(){
         return new RequestSpecBuilder()

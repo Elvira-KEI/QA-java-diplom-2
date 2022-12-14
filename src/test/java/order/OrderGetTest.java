@@ -1,8 +1,14 @@
+package order;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.example.*;
+import org.example.api.OrderClient;
+import org.example.api.UserClient;
+import org.example.entity.Client;
+import org.example.entity.Order;
+import org.example.utils.ClientGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +28,14 @@ public class OrderGetTest {
     private UserClient userClient;
     private OrderClient orderClient;
 
+    private void fillListIngredients() {
+        response = orderClient.getAllIngredients();
+        List<String> list = response.extract().path("data._id");
+        List<String> ingredients = order.getIngredients();
+        ingredients.add(list.get(0));
+        ingredients.add(list.get(5));
+        ingredients.add(list.get(0));
+    }
     @Before
     public void setUp() {
         client = ClientGenerator.getRandomClient();
@@ -40,19 +54,6 @@ public class OrderGetTest {
 
         assertThat("Code not equal", statusCode, equalTo(SC_OK));
         assertThat("Ingredients is get incorrect", isGet, equalTo(true));
-    }
-
-    @Test
-    @DisplayName("Get all orders")
-    public void getAllOrders() {
-        response = orderClient.createOrderWithoutAuthorization(order);
-        response = orderClient.getAllOrders();
-        int statusCode = response.extract().statusCode();
-        boolean isGet = response.extract().path("success");
-
-        assertThat("Code not equal", statusCode, equalTo(SC_OK));
-        assertThat("Orders is get incorrect", isGet, equalTo(true));
-
     }
 
     @Test
@@ -85,12 +86,5 @@ public class OrderGetTest {
         assertThat("Order is get correct", isGet, equalTo(false));
     }
 
-    private void fillListIngredients() {
-        response = orderClient.getAllIngredients();
-        List<String> list = response.extract().path("data._id");
-        List<String> ingredients = order.getIngredients();
-        ingredients.add(list.get(0));
-        ingredients.add(list.get(5));
-        ingredients.add(list.get(0));
-    }
+
 }

@@ -1,10 +1,12 @@
+package client;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.example.Client;
-import org.example.ClientGenerator;
-import org.example.UserClient;
+import org.example.entity.Client;
+import org.example.utils.ClientGenerator;
+import org.example.api.UserClient;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @Epic("Delete client")
 public class ClientDeleteTest {
-    private static final String MESSAGE_ACCEPTED = "Client successfully removed";
+    private static final String MESSAGE_ACCEPTED = "User successfully removed";
     private UserClient userClient;
     private Client client;
 

@@ -1,10 +1,12 @@
+package client;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.example.Client;
-import org.example.ClientGenerator;
-import org.example.UserClient;
+import org.example.entity.Client;
+import org.example.utils.ClientGenerator;
+import org.example.api.UserClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +60,6 @@ public class ClientUpdateTest {
 
         assertThat("Code not equal", statusCode, equalTo(SC_UNAUTHORIZED));
         assertThat("Message not equal", message, equalTo(MESSAGE_UNAUTHORIZED));
-        assertThat("Client is update correct", isUpdate, equalTo(false));
+        assertThat("User is update correct", isUpdate, equalTo(false));
     }
 }

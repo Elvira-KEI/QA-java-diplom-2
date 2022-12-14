@@ -9,37 +9,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <allure.version>2.17.2</allure.version>
+        <aspectj.version>1.9.6</aspectj.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- версия Aspectj -->
-        <aspectj.version>1.9.7</aspectj.version>
-        <!-- версия Allure -->
-        <allure.version>2.20.0</allure.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
-        <!-- модуль взаимодействия Allure и Junit -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit4</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
-        <dependency>
-            <!--  взаимодействия Allure и RestAssured -->
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-rest-assured</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -47,15 +25,49 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit4</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.16</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <!-- настройка плагина maven-surefire-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
@@ -72,7 +84,6 @@
                     </properties>
                     <systemProperties>
                         <property>
-                            <!-- папка, в которую будут генерироваться отчёты Allure -->
                             <name>allure.results.directory</name>
                             <value>${project.build.directory}/allure-results</value>
                         </property>
@@ -86,7 +97,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- подключение плагина allure-maven для вызова функций Allure с помощью Maven -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
