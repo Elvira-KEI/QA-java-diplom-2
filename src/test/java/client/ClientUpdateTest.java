@@ -32,14 +32,14 @@ public class ClientUpdateTest {
     }
     @After
     public void clearState() {
-        userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
     }
     @Test
     @DisplayName("Update client by authorization")
     public void updateClientByAuthorization() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         response = userClient.updateClientByAuthorization(ClientGenerator.getRandomClient(), accessToken);
         int statusCode = response.extract().statusCode();
         boolean isUpdate = response.extract().path("success");
@@ -51,7 +51,7 @@ public class ClientUpdateTest {
     @Test
     @DisplayName("Update client without authorization")
     public void updateClientWithoutAuthorization() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
         response = userClient.updateClientWithoutAuthorization(ClientGenerator.getRandomClient());
         int statusCode = response.extract().statusCode();

@@ -29,12 +29,12 @@ public class ClientGetTest {
     }
     @After
     public void clearState() {
-        userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
     }
     @Test
     @DisplayName("Get client by valid credentials")
     public void clientGetByValidCredentials() {
-        ValidatableResponse response = userClient.create(client);
+        ValidatableResponse response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
         response = userClient.getClient(accessToken);
         int statusCode = response.extract().statusCode();

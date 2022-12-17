@@ -48,15 +48,15 @@ public class OrderCreateTest {
     @DisplayName("Create order by authorization")
     public void orderCreateByAuthorization() {
         fillListIngredients();
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         String accessToken = response.extract().path("accessToken");
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         response = orderClient.createOrderByAuthorization(order, accessToken);
         int statusCode = response.extract().statusCode();
         boolean isCreate = response.extract().path("success");
         int orderNumber = response.extract().path("order.number");
         String orderId = response.extract().path("order._id");
-        response = userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        response = userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
 
         assertThat("Code not equal", statusCode, equalTo(SC_OK));
         assertThat("Order is create incorrect", isCreate, equalTo(true));

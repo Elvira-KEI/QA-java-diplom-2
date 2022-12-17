@@ -30,9 +30,9 @@ public class ClientDeleteTest {
     @Test
     @DisplayName("Client delete by valid credentials")
     public void clientDeleteByValidCredentials() {
-        ValidatableResponse response = userClient.create(client);
+        ValidatableResponse response = userClient.createClient(client);
         String accessToken = response.extract().path("accessToken");
-        response = userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        response = userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isDelete = response.extract().path("success");

@@ -31,11 +31,11 @@ public class ClientCreateTest {
     @Test
     @DisplayName("Client create by valid credentials")
     public void clientCreateByValidCredentials() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         int statusCode = response.extract().statusCode();
         boolean isCreate = response.extract().path("success");
         String accessToken = response.extract().path("accessToken");
-        response = userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        response = userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
 
         assertThat("Code not equal", statusCode, equalTo(SC_OK));
         assertThat("Client is create incorrect", isCreate, equalTo(true));
@@ -45,7 +45,7 @@ public class ClientCreateTest {
     @DisplayName("Client create is empty email")
     public void clientCreateIsEmptyEmail() {
         client.setEmail(null);
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isCreate = response.extract().path("success");
@@ -59,7 +59,7 @@ public class ClientCreateTest {
     @DisplayName("Client create is empty password")
     public void clientCreateIsEmptyPassword() {
         client.setPassword(null);
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isCreate = response.extract().path("success");
@@ -73,7 +73,7 @@ public class ClientCreateTest {
     @DisplayName("Client create is empty name")
     public void clientCreateIsEmptyName() {
         client.setName(null);
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isCreate = response.extract().path("success");
@@ -86,8 +86,8 @@ public class ClientCreateTest {
     @Test
     @DisplayName("Repeated request by create client")
     public void repeatedRequestByCreateClient() {
-        userClient.create(client);
-        response = userClient.create(client);
+        userClient.createClient(client);
+        response = userClient.createClient(client);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isCreate = response.extract().path("success");

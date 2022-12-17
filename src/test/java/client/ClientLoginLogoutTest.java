@@ -34,15 +34,15 @@ public class ClientLoginLogoutTest {
     }
     @After
     public void clearState() {
-        userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
     }
 
     @Test
     @DisplayName("Client login by valid credentials")
     public void clientLoginByValidCredentials() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         int statusCode = response.extract().statusCode();
         boolean isLogin = response.extract().path("success");
 
@@ -54,9 +54,9 @@ public class ClientLoginLogoutTest {
     @Test
     @DisplayName("Client logout by valid credentials")
     public void clientLogoutByValidCredentials() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         String refreshToken = response.extract().path("refreshToken");
         refreshToken = "{\"token\":\"" + refreshToken + "\"}";
         response = userClient.logoutClient(refreshToken);
@@ -73,10 +73,10 @@ public class ClientLoginLogoutTest {
     @Test
     @DisplayName("Client login is empty email")
     public void clientLoginByEmptyEmail() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
         client.setEmail(null);
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isLogin = response.extract().path("success");
@@ -90,10 +90,10 @@ public class ClientLoginLogoutTest {
     @Test
     @DisplayName("Client login is empty password")
     public void clientLoginByEmptyPassword() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         accessToken = response.extract().path("accessToken");
         client.setPassword(null);
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         int statusCode = response.extract().statusCode();
         String message = response.extract().path("message");
         boolean isLogin = response.extract().path("success");

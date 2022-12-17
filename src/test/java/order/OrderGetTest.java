@@ -59,14 +59,14 @@ public class OrderGetTest {
     @Test
     @DisplayName("Get order by authorization client")
     public void getOrderByAuthorizationClient() {
-        response = userClient.create(client);
+        response = userClient.createClient(client);
         String accessToken = response.extract().path("accessToken");
-        response = userClient.login(client, accessToken);
+        response = userClient.loginClient(client, accessToken);
         response = orderClient.createOrderByAuthorization(order, accessToken);
         response = orderClient.getOrdersByAuthorization(accessToken);
         int statusCode = response.extract().statusCode();
         boolean isGet = response.extract().path("success");
-        response = userClient.delete(StringUtils.substringAfter(accessToken, " "));
+        response = userClient.deleteClient(StringUtils.substringAfter(accessToken, " "));
 
         assertThat("Code not equal", statusCode, equalTo(SC_OK));
         assertThat("Order is get incorrect", isGet, equalTo(true));

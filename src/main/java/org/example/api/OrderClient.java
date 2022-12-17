@@ -2,11 +2,12 @@ package org.example.api;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+import org.example.config.ConfigStellarBurgers;
 import org.example.entity.Order;
 
 import static io.restassured.RestAssured.given;
 
-public class OrderClient extends UserClient {
+public class OrderClient extends ConfigStellarBurgers {
     private static final String PATH = "api/orders";
     private static final String PATH_INGREDIENTS = "api/ingredients";
 
