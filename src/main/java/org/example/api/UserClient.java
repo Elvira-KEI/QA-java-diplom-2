@@ -1,10 +1,7 @@
 package org.example.api;
 
 import io.qameta.allure.Step;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 import org.example.config.ConfigStellarBurgers;
 import org.example.entity.Client;
 
